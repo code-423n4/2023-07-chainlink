@@ -63,6 +63,8 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 - Starts July 03, 2023 20:00 UTC 
 - Ends July 10, 2023 20:00 UTC 
 
+**IMPORTANT NOTE:** Prior to receiving payment from this audit you MUST become a [Certified Warden](https://code4rena.com/certified-contributor-application/)  (successfully complete KYC). This also applies to bot crews.  You do not have to complete this process before competing or submitting bugs. You must have started this process within 48 hours after the audit ends, i.e. **by July 12, 2023 at 20:00 UTC in order to receive payment.**
+
 ## Automated Findings / Publicly Known Issues
 
 Automated findings output for the audit can be found [here](add link to report) within 24 hours of audit opening.
