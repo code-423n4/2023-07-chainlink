@@ -117,9 +117,14 @@ support for `predecessor`s to ensure that configuration changes are sequenced pr
 even if an adversary is executing them. Since the adversary can also control the amount
 of gas, configuration functions are expected to not have gas-dependent behavior other than reverting of insufficient gas is supplied.
 
-The `CallProxy` is not expected to be used with contracts that could `SELFDESTRUCT`. It thus has not
+The `CallProxy` is not expected to be used with contracts that could `SELFDESTRUCT`. It thus has no
 `EXTCODESIZE`-check prior to making a call, we expect it to be configured correctly (i.e. pointing to a real `RBACTimelock`) on deployment.
 
+Unlike standard multi-sig contracts, `ManyChainMultiSig` supports signing many transactions
+targeting many chains with a single set of signatures. (We currently only target EVM chains
+and all EVM chains support the same ECDSA secp256k1 standard.) This is useful for administering
+systems of contracts spanning many chains without increasing signing overhead linearly with the
+number of supported chains.
 
 The Proposer and Canceller `ManyChainMultiSig` contracts are expected to be
 configured with a group structure like this, with different sets of signers for each
