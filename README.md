@@ -239,7 +239,13 @@ As time goes by, we may add more functions to the `IARM` interface. By using a f
 
 ## Out of scope
 
-Everything not listed above is out of scope.
+We intentionally use solidity version 0.8.19 and not 0.8.20.
+
+We intentionally use the old `require` syntax (and some other old techniques) in `RBACTimelock`
+to keep the diff vs the original OZ contract smaller.
+
+Gas cost isn't particularly important for these contracts because they're not expected to
+be called often. Correctness matters much more.
 
 The fact that "anyone can execute" on the `ManyChainMultiSig`, the
 `CallProxy`, and the `ARMProxy` is intentional and not in scope. Consequently, so is the
