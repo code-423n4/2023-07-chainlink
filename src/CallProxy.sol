@@ -4,10 +4,13 @@ pragma solidity =0.8.19;
 /// @notice a contract which acts as a forwarder that forwards the input from
 /// any caller to a a target contract.
 contract CallProxy {
+    event TargetSet(address target);
+
     address immutable i_target;
 
     constructor(address target) {
         i_target = target;
+        emit TargetSet(target);
     }
 
     fallback() external payable {
