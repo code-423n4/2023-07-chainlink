@@ -75,7 +75,7 @@ Automated findings output for the audit can be found [here](add link to report) 
 
 # Overview
 
-### `CallProxy`, `ManyChainMultiSig`, `RBACTimelock`
+## `CallProxy`, `ManyChainMultiSig`, `RBACTimelock`
 The `CallProxy`, `ManyChainMultiSig`, `RBACTimelock` contracts are all part of a system of `owner` contracts that is supposed to administer other contracts (henceforth referred to as `OWNED`). `OWNED` contracts represent any set of contracts that are (1) potentially deployed across chains and (2) have an `owner` role (e.g. using OpenZeppelin's `OwnableInterface`).
 
 Here is a diagram of how we envision these contracts to be configured:
@@ -124,7 +124,7 @@ Unlike standard multi-sig contracts, `ManyChainMultiSig` supports signing many t
 targeting many chains with a single set of signatures. (We currently only target EVM chains
 and all EVM chains support the same ECDSA secp256k1 standard.) This is useful for administering
 systems of contracts spanning many chains without increasing signing overhead linearly with the
-number of supported chains.
+number of supported chains. We expect to use the same set of EOA signers across many chains.Consequently, `ManyChainMultiSig` only supports EOAs as signers, *not* other smart contracts.
 
 The Proposer and Canceller `ManyChainMultiSig` contracts are expected to be
 configured with a group structure like this, with different sets of signers for each
@@ -194,7 +194,7 @@ graph TD;
 Subgroup 2.1 has the same signers as the canceller `ManyChainMultiSig`. No change can ever be enacted
 without approval of this group.
 
-### `ARMProxy`
+## `ARMProxy`
 
 The `ARMProxy` enables an `owner` (using `RBACTimelock`) to upgrade an underlying
 `ARM` contract. When the `owner` wants to upgrade, they call `ARMProxy.setARM(new ARM address)`.
