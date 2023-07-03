@@ -109,6 +109,8 @@ This enables anyone to inspect configuration changes to the OWNED contracts befo
 they take effect. For example, a user that disagrees with a configuration change might choose
 to withdraw funds stored in OWNED contracts before they can be executed. (Though the exact mechanism and assumptions around how this would work are out of scope.)
 
+Proposers can also cancel so that they may "undo" proposals with mistakes in them.
+
 The `CallProxy` is intentionally callable by anyone. Offchain tooling used for
 generating configuration changes will make appropriate use of the `RBACTimelock`'s
 support for `predecessor`s to ensure that configuration changes are sequenced properly
@@ -120,7 +122,8 @@ The `CallProxy` is not expected to be used with contracts that could `SELFDESTRU
 
 
 The Proposer and Canceller `ManyChainMultiSig` contracts are expected to be
-configured with a group structure like this (exact k-of-n parameters might differ):
+configured with a group structure like this, with different sets of signers for each
+(exact k-of-n parameters might differ):
 ```
           ┌──────────┐
           │Root Group│
@@ -240,7 +243,7 @@ Everything not listed above is out of scope.
 - How many contracts are in scope?: 4 contracts, see above
 - Total SLoC for these contracts?: See above, roughly 550 lines
 - How many external imports are there?: Just OpenZeppelin
-- How many separate interfaces and struct definitions are there for the contracts within scope?:
+- How many separate interfaces and struct definitions are there for the contracts within scope?: 5 interfaces, 8 struct definitions
 - Does most of your code generally use composition or inheritance?: Mostly composition, but there is a little inheritance
 - How many external calls?: Each contract in scope performs calls to external contracts from one location per contract
 - What is the overall line coverage percentage provided by your tests?:  > 95%
