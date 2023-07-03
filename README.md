@@ -50,6 +50,7 @@ graph TD;
     timelock --> |OWNER| owned;
     timelock --> |OWNER| emerg;
     timelock --> |OWNER| cancel;
+    timelock --> |OWNER| prop;
     emerg --> |BYPASSER| timelock;
 ```
 
