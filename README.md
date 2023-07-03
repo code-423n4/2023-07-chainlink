@@ -104,7 +104,7 @@ the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
 expected to only become active in "break-glass" type emergency scenarios where
 waiting for `RBACTimelock.minDelay` would be harmful.
 
-We expect to set ``RBACTimelock.minDelay` to ~ 24 hours in our deployment.
+We expect to set `RBACTimelock.minDelay` to ~ 24 hours in our deployment.
 This enables anyone to inspect configuration changes to the OWNED contracts before
 they take effect. For example, a user that disagrees with a configuration change might choose
 to withdraw funds stored in OWNED contracts before they can be executed. (Though the exact mechanism and assumptions around how this would work are out of scope.)
@@ -134,7 +134,7 @@ configured with a group structure like this (exact k-of-n parameters might diffe
 ```
 
 The Bypasser `ManyChainMultiSig` contract is expected to be configured with a
-more complex group structure like this:
+more complex group structure like this (exact structure might differ):
 ```mermaid
 graph TD;
 
@@ -185,7 +185,7 @@ graph TD;
 
 ### `ARMProxy`
 
-The `ARMProxy` enables an `owner` (using `RBACTimelock`) to "upgrade" an underlying
+The `ARMProxy` enables an `owner` (using `RBACTimelock`) to upgrade an underlying
 `ARM` contract. When the `owner` wants to upgrade, they call `ARMProxy.setARM(new ARM address)`.
 We expect the `ARMProxy` to transparently pass through any function calls except those to
 functions defined by `ARMProxy` and the contracts inherits from.
@@ -203,7 +203,7 @@ graph TD;
     c3 --> |immutable ref| armproxy;
     armproxy --> |OWNER-controlled ref| iarm;
 ```
-Initially, the "ARM implementtation contract" will implement the `IARM` interface.
+Initially, the "ARM implementation contract" will implement the `IARM` interface.
 As time goes by, we may add more functions to the `IARM` interface. By using a fallback function and assembly, we are future-proof against such updates.
 
 
