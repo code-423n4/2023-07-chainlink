@@ -58,7 +58,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
   - Scout awards: $500 USDC 
   - Mitigation Review: $10,000 USDC (*Opportunity goes to top 3 certified wardens based on placement in this audit.*)
 - Join [C4 Discord](https://discord.gg/code4rena) to register
-- Submit findings [using the C4 form](https://code4rena.com/contests/2023-07-chainlink/submit)
+- Submit findings [using the C4 form](https://code4rena.com/contests/2023-07-chainlink-cross-chain-contract-administration-multi-signature-contract-timelock-and-call-proxies/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
 - Starts July 03, 2023 20:00 UTC 
 - Ends July 10, 2023 20:00 UTC 
