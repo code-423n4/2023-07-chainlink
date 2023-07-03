@@ -2,9 +2,9 @@
 
 This `README.md` contains a set of checklists for our audit collaboration.
 
-Your audit will use two repos: 
+Your audit will use two repos:
 - **an _audit_ repo** (this one), which is used for scoping your audit and for providing information to wardens
-- **a _findings_ repo**, where issues are submitted (shared with you after the audit) 
+- **a _findings_ repo**, where issues are submitted (shared with you after the audit)
 
 Ultimately, when we launch the audit, this repo will be made public and will contain the smart contracts to be reviewed and all the information needed for audit participants. The findings repo will be made public after the audit report is published and your team has mitigated the identified issues.
 
@@ -39,7 +39,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 - [ ] Does the token conform to the ERC-20 standard? In what specific ways does it differ?
 - [ ] Describe anything else that adds any special logic that makes your approach unique
 - [ ] Identify any areas of specific concern in reviewing the code
-- [ ] Review the Gas award pool amount. This can be adjusted up or down, based on your preference - just flag it for Code4rena staff so we can update the pool totals across all comms channels. 
+- [ ] Review the Gas award pool amount. This can be adjusted up or down, based on your preference - just flag it for Code4rena staff so we can update the pool totals across all comms channels.
 - [ ] Optional / nice to have: pre-record a high-level overview of your protocol (not just specific smart contract functions). This saves wardens a lot of time wading through documentation.
 - [ ] See also: [this checklist in Notion](https://code4rena.notion.site/Key-info-for-Code4rena-sponsors-f60764c4c4574bbf8e7a6dbd72cc49b4#0cafa01e6201462e9f78677a39e09746)
 - [ ] Delete this checklist and all text above the line below when you're ready.
@@ -47,21 +47,21 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 ---
 
 # Chainlink CCIP-2 audit details
-- Total Prize Pool: $47,900 USDC 
-  - HM awards: $24,750 USDC 
-  - Analysis awards: $1,500 USDC 
-  - QA awards: $750 USDC 
-  - Bot Race awards: $2,250 USDC 
-  - Gas awards: $750 USDC 
-  - Judge awards: $5,000 USDC 
-  - Lookout awards: $2,400 USDC 
-  - Scout awards: $500 USDC 
+- Total Prize Pool: $47,900 USDC
+  - HM awards: $24,750 USDC
+  - Analysis awards: $1,500 USDC
+  - QA awards: $750 USDC
+  - Bot Race awards: $2,250 USDC
+  - Gas awards: $750 USDC
+  - Judge awards: $5,000 USDC
+  - Lookout awards: $2,400 USDC
+  - Scout awards: $500 USDC
   - Mitigation Review: $10,000 USDC (*Opportunity goes to top 3 certified wardens based on placement in this audit.*)
 - Join [C4 Discord](https://discord.gg/code4rena) to register
 - Submit findings [using the C4 form](https://code4rena.com/contests/2023-07-chainlink/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
-- Starts July 03, 2023 20:00 UTC 
-- Ends July 10, 2023 20:00 UTC 
+- Starts July 03, 2023 20:00 UTC
+- Ends July 10, 2023 20:00 UTC
 
 **IMPORTANT NOTE:** Prior to receiving payment from this audit you MUST become a [Certified Warden](https://code4rena.com/certified-contributor-application/)  (successfully complete KYC). This also applies to bot crews.  You do not have to complete this process before competing or submitting bugs. You must have started this process within 48 hours after the audit ends, i.e. **by July 12, 2023 at 20:00 UTC in order to receive payment.**
 
@@ -85,7 +85,7 @@ graph TD;
     owned[OWNED contracts];
     prop[ManyChainMultiSig for proposers];
     cancel[ManyChainMultiSig for cancellers];
-    forwarder[CallForwarder]; 
+    forwarder[CallProxy];
     timelock[RBACTimelock];
     emerg[ManyChainMultiSig for bypassers];
     prop --> |PROPOSER| timelock;
@@ -100,9 +100,24 @@ graph TD;
 ```
 
 Regular administration of the `OWNED` contracts is expected to happen through
-the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is 
+the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
 expected to only become active in "break-glass" type emergency scenarios where
 waiting for `RBACTimelock.minDelay` would be harmful.
+
+We expect to set ``RBACTimelock.minDelay` to ~ 24 hours in our deployment.
+This enables anyone to inspect configuration changes to the OWNED contracts before
+they take effect. For example, a user that disagrees with a configuration change might choose
+to withdraw funds stored in OWNED contracts before they can be executed. (Though the exact mechanism and assumptions around how this would work are out of scope.)
+
+The `CallProxy` is intentionally callable by anyone. Offchain tooling used for
+generating configuration changes will make appropriate use of the `RBACTimelock`'s
+support for `predecessor`s to ensure that configuration changes are sequenced properly
+even if an adversary is executing them. Since the adversary can also control the amount
+of gas, configuration functions are expected to not have gas-dependent behavior other than reverting of insufficient gas is supplied.
+
+The `CallProxy` is not expected to be used with contracts that could `SELFDESTRUCT`. It thus has not
+`EXTCODESIZE`-check prior to making a call, we expect it to be configured correctly (i.e. pointing to a real `RBACTimelock`) on deployment.
+
 
 The Proposer and Canceller `ManyChainMultiSig` contracts are expected to be
 configured with a group structure like this (exact k-of-n parameters might differ):
@@ -118,7 +133,7 @@ configured with a group structure like this (exact k-of-n parameters might diffe
  └────────┘ └────────┘     └────────┘
 ```
 
-The Bypasser `ManyChainMultiSig` contract is expected to be configured with a 
+The Bypasser `ManyChainMultiSig` contract is expected to be configured with a
 more complex group structure like this:
 ```mermaid
 graph TD;
@@ -198,14 +213,14 @@ As time goes by, we may add more functions to the `IARM` interface. By using a f
 
 *List all files in scope in the table below (along with hyperlinks) -- and feel free to add notes here to emphasize areas of focus.*
 
-*For line of code counts, we recommend using [cloc](https://github.com/AlDanial/cloc).* 
+*For line of code counts, we recommend using [cloc](https://github.com/AlDanial/cloc).*
 
-| Contract | SLOC | Purpose | Libraries used |  
+| Contract | SLOC | Purpose | Libraries used |
 | ----------- | ----------- | ----------- | ----------- |
 | [src/ARMProxy.sol](src/ARMProxy.sol) | 36 | ARM proxy contract | [src/\*Owner\*.sol](src/) |
 | [src/CallProxy.sol](src/CallProxy.sol) | 17 | Call proxy contract callable by anyone | None |
 | [src/ManyChainMultiSig.sol](src/ManyChainMultiSig.sol) | 275 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-| [src/RBACTimelock.sol](src/RBACTimelock.sol) | 216 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/RBACTimelock.sol](src/RBACTimelock.sol) | 216 | Timelock with role-based access control | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
 
 ## Out of scope
 
@@ -217,35 +232,35 @@ Everything not listed above is out of scope.
 
 *Sponsor, please confirm/edit the information below.*
 
-## Scoping Details 
+## Scoping Details
 ```
-- If you have a public code repo, please share it here:  
-- How many contracts are in scope?:   
-- Total SLoC for these contracts?:  
-- How many external imports are there?:  
-- How many separate interfaces and struct definitions are there for the contracts within scope?:  
-- Does most of your code generally use composition or inheritance?:   
-- How many external calls?:   
-- What is the overall line coverage percentage provided by your tests?:  
-- Is there a need to understand a separate part of the codebase / get context in order to audit this part of the protocol?:   
-- Please describe required context:   
-- Does it use an oracle?:  
-- Does the token conform to the ERC20 standard?:  
-- Are there any novel or unique curve logic or mathematical models?: 
-- Does it use a timelock function?:  
-- Is it an NFT?: 
-- Does it have an AMM?:   
-- Is it a fork of a popular project?:   
-- Does it use rollups?:   
-- Is it multi-chain?:  
-- Does it use a side-chain?: 
+- If you have a public code repo, please share it here:  No public repo
+- How many contracts are in scope?: 4 contracts, see above
+- Total SLoC for these contracts?: See above, roughly 550 lines
+- How many external imports are there?: Just OpenZeppelin
+- How many separate interfaces and struct definitions are there for the contracts within scope?:
+- Does most of your code generally use composition or inheritance?: Mostly composition, but there is a little inheritance
+- How many external calls?: Each contract in scope performs calls to external contracts from one location per contract
+- What is the overall line coverage percentage provided by your tests?:  > 95%
+- Is there a need to understand a separate part of the codebase / get context in order to audit this part of the protocol?: No
+- Please describe required context: N/A
+- Does it use an oracle?: No
+- Does the token conform to the ERC20 standard?: No token
+- Are there any novel or unique curve logic or mathematical models?: No
+- Does it use a timelock function?: Yes
+- Is it an NFT?: No
+- Does it have an AMM?: No
+- Is it a fork of a popular project?: Partly. RBACTimelock.sol is derived from OpenZeppelin code
+- Does it use rollups?: It can run on roll-ups or regular L1s
+- Is it multi-chain?: Yes
+- Does it use a side-chain?: It could run on a side chain. It can run on any EVM chain
 ```
 
 # Tests
 
-Our tests use foundry. They rely on some ffi code written in Go (see `testCommands/`).
-`forge test --ffi` should do the trick.
+*Provide every step required to build the project from a fresh git clone, as well as steps to run the tests with a gas report.*
 
-*Provide every step required to build the project from a fresh git clone, as well as steps to run the tests with a gas report.* 
+Our tests use [foundry](https://book.getfoundry.sh/). They rely on some ffi code written in Go 1.18 (see `testCommands/`).
+See the [official Go docs](https://go.dev/doc/install) for installation instructions.
+Once you have Go running, `forge test --ffi` should do the trick.
 
-*Note: Many wardens run Slither as a first pass for testing.  Please document any known errors with no workaround.* 
