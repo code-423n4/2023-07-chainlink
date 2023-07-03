@@ -1,13 +1,14 @@
 # Chainlink CCIP-2 audit details
-- Total Prize Pool: $47,900 USDC 
-  - HM awards: $25,500 USDC 
-  - Analysis awards: $1,500 USDC 
-  - QA awards: $750 USDC 
-  - Bot Race awards: $2,250 USDC 
-  - Gas awards: $0 USDC 
-  - Judge awards: $5,000 USDC 
-  - Lookout awards: $2,400 USDC 
-  - Scout awards: $500 USDC 
+
+- Total Prize Pool: $47,900 USDC
+  - HM awards: $25,500 USDC
+  - Analysis awards: $1,500 USDC
+  - QA awards: $750 USDC
+  - Bot Race awards: $2,250 USDC
+  - Gas awards: $0 USDC
+  - Judge awards: $5,000 USDC
+  - Lookout awards: $2,400 USDC
+  - Scout awards: $500 USDC
   - Mitigation Review: $10,000 USDC (*Opportunity goes to top 3 certified wardens based on placement in this audit.*)
 - Join [C4 Discord](https://discord.gg/code4rena) to register
 - Submit findings [using the C4 form](https://code4rena.com/contests/2023-07-chainlink-cross-chain-contract-administration-multi-signature-contract-timelock-and-call-proxies/submit)
@@ -25,10 +26,10 @@ Automated findings output for the audit can be found [here](add link to report) 
 
 *Note for C4 wardens: Anything included in the automated findings output is considered a publicly known issue and is ineligible for awards.*
 
-
 # Overview
 
 ## `CallProxy`, `ManyChainMultiSig`, `RBACTimelock`
+
 The `CallProxy`, `ManyChainMultiSig`, `RBACTimelock` contracts are all part of a system of `owner` contracts that is supposed to administer other contracts (henceforth referred to as `OWNED`). `OWNED` contracts represent any system of contracts that are (1) potentially deployed across chains and (2) have an `owner` role (e.g. using OpenZeppelin's `OwnableInterface`).
 
 Here is a diagram of how we envision these contracts to be configured:
@@ -88,6 +89,7 @@ adversary will be able to control the gas price and amount for the execution.
 The Proposer and Canceller `ManyChainMultiSig` contracts are expected to be
 configured with a group structure like this, with different sets of signers for each
 (exact k-of-n parameters might differ):
+
 ```
           ┌──────────┐
           │Root Group│
@@ -102,6 +104,7 @@ configured with a group structure like this, with different sets of signers for 
 
 The Bypasser `ManyChainMultiSig` contract is expected to be configured with a
 more complex group structure like this (exact structure might differ):
+
 ```mermaid
 graph TD;
 
@@ -161,6 +164,7 @@ We expect the `ARMProxy` to transparently pass through any function calls except
 functions defined by `ARMProxy` and the contracts inherits from.
 
 Deployments are expected to look like this:
+
 ```mermaid
 graph TD;
     c1[ARM consumer 1];
@@ -173,23 +177,18 @@ graph TD;
     c3 --> |immutable ref| armproxy;
     armproxy --> |OWNER-controlled ref| iarm;
 ```
+
 Initially, the "ARM implementation contract" will implement the `IARM` interface.
 As time goes by, we may add more functions to the `IARM` interface. By using a fallback function and assembly, we are future-proof against such updates.
 
-*Please provide some context about the code being audited, and identify any areas of specific concern in reviewing the code. (This is a good place to link to your docs, if you have them.)*
-
 # Scope
-
-*List all files in scope in the table below (along with hyperlinks) -- and feel free to add notes here to emphasize areas of focus.*
-
-*For line of code counts, we recommend using [cloc](https://github.com/AlDanial/cloc).*
 
 | Contract | SLOC | Purpose | Libraries used |
 | ----------- | ----------- | ----------- | ----------- |
-| [src/ARMProxy.sol](src/ARMProxy.sol) | 36 | ARM proxy contract | [src/\*Owner\*.sol](src/) |
-| [src/CallProxy.sol](src/CallProxy.sol) | 17 | Call proxy contract callable by anyone | None |
-| [src/ManyChainMultiSig.sol](src/ManyChainMultiSig.sol) | 275 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-| [src/RBACTimelock.sol](src/RBACTimelock.sol) | 216 | Timelock with role-based access control | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/ARMProxy.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/ARMProxy.sol) | 36 | ARM proxy contract | [src/\*Owner\*.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/) |
+| [src/CallProxy.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/CallProxy.sol) | 17 | Call proxy contract callable by anyone | None |
+| [src/ManyChainMultiSig.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/ManyChainMultiSig.sol) | 275 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/RBACTimelock.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/RBACTimelock.sol) | 216 | Timelock with role-based access control | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
 
 ## Out of scope
 
@@ -210,13 +209,12 @@ are expected to be deployed pointing at trusted contracts.
 
 # Additional Context
 
-*Describe any novel or unique curve logic or mathematical models implemented in the contracts*
-
 No curve logic or math models. The `ManyChainMultiSig` has interesting schemes
 for configuring a tree of subgroups, Merkle trees of transactions, and chain-specific
 metadata. See the contract docs for details.
 
 ## Scoping Details
+
 ```
 - If you have a public code repo, please share it here:  No public repo
 - How many contracts are in scope?: 4 contracts, see above
@@ -242,9 +240,6 @@ metadata. See the contract docs for details.
 
 # Tests
 
-*Provide every step required to build the project from a fresh git clone, as well as steps to run the tests with a gas report.*
-
 Our tests use [foundry](https://book.getfoundry.sh/). They rely on some ffi code written in Go 1.18 (see `testCommands/`).
 See the [official Go docs](https://go.dev/doc/install) for installation instructions.
 Once you have Go running, `forge test --ffi` should do the trick.
-
