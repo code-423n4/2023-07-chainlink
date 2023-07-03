@@ -251,6 +251,9 @@ The fact that "anyone can execute" on the `ManyChainMultiSig`, the
 `CallProxy`, and the `ARMProxy` is intentional and not in scope. Consequently, so is the
 fact that the untrusted executor can choose the gas limit and gas price.
 
+Return data bombs for `CallProxy` or `ARMProxy` are out of scope since both contracts
+are expected to be deployed pointing at trusted contracts.
+
 # Additional Context
 
 *Describe any novel or unique curve logic or mathematical models implemented in the contracts*
