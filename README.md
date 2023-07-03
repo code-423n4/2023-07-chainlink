@@ -48,7 +48,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 
 # Chainlink CCIP-2 audit details
 - Total Prize Pool: $47,900 USDC 
-  - HM awards: $24,750 USDC 
+  - HM awards: $25,500 USDC 
   - Analysis awards: $1,500 USDC 
   - QA awards: $750 USDC 
   - Bot Race awards: $2,250 USDC 
@@ -64,6 +64,8 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 - Ends July 10, 2023 20:00 UTC 
 
 **IMPORTANT NOTE:** Prior to receiving payment from this audit you MUST become a [Certified Warden](https://code4rena.com/certified-contributor-application/)  (successfully complete KYC). This also applies to bot crews.  You do not have to complete this process before competing or submitting bugs. You must have started this process within 48 hours after the audit ends, i.e. **by July 12, 2023 at 20:00 UTC in order to receive payment.**
+
+**Note for C4 wardens:** For this contest, gas optimizations are out of scope. The Polynomial team will not be awarding prize funds for gas-specific submissions.
 
 ## Automated Findings / Publicly Known Issues
 
