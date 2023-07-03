@@ -57,7 +57,8 @@ the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
 expected to only become active in "break-glass" type emergency scenarios where
 waiting for `RBACTimelock.minDelay` would be harmful.
 
-We expect to set `RBACTimelock.minDelay` to ~ 24 hours in our deployment.
+We expect to set `RBACTimelock.minDelay` to ~ 24 hours in our deployment, but in general values
+between 1 hour and 1 month should be supported.
 This enables anyone to inspect configuration changes to the OWNED contracts before
 they take effect. For example, a user that disagrees with a configuration change might choose
 to withdraw funds stored in OWNED contracts before they can be executed. (Though the exact mechanism and assumptions around how this would work are out of scope.)
