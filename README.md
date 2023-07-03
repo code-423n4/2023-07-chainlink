@@ -196,7 +196,7 @@ graph TD;
     sub23 --- sigs20to27;
 ```
 
-Subgroup 2.1 has the same signers as the canceller `ManyChainMultiSig`. No change can ever be enacted
+Subgroup 1 has the same signers as the canceller `ManyChainMultiSig`. No change can ever be enacted
 without approval of this group.
 
 ## `ARMProxy`
