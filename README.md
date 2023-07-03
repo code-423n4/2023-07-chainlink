@@ -52,7 +52,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
   - Analysis awards: $1,500 USDC
   - QA awards: $750 USDC
   - Bot Race awards: $2,250 USDC
-  - Gas awards: $750 USDC
+  - Gas awards: $0 USDC
   - Judge awards: $5,000 USDC
   - Lookout awards: $2,400 USDC
   - Scout awards: $500 USDC
@@ -60,8 +60,8 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 - Join [C4 Discord](https://discord.gg/code4rena) to register
 - Submit findings [using the C4 form](https://code4rena.com/contests/2023-07-chainlink/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
-- Starts July 03, 2023 20:00 UTC
-- Ends July 10, 2023 20:00 UTC
+- Starts July 05, 2023 20:00 UTC
+- Ends July 12, 2023 20:00 UTC
 
 **IMPORTANT NOTE:** Prior to receiving payment from this audit you MUST become a [Certified Warden](https://code4rena.com/certified-contributor-application/)  (successfully complete KYC). This also applies to bot crews.  You do not have to complete this process before competing or submitting bugs. You must have started this process within 48 hours after the audit ends, i.e. **by July 12, 2023 at 20:00 UTC in order to receive payment.**
 
@@ -76,7 +76,7 @@ Automated findings output for the audit can be found [here](add link to report) 
 # Overview
 
 ## `CallProxy`, `ManyChainMultiSig`, `RBACTimelock`
-The `CallProxy`, `ManyChainMultiSig`, `RBACTimelock` contracts are all part of a system of `owner` contracts that is supposed to administer other contracts (henceforth referred to as `OWNED`). `OWNED` contracts represent any set of contracts that are (1) potentially deployed across chains and (2) have an `owner` role (e.g. using OpenZeppelin's `OwnableInterface`).
+The `CallProxy`, `ManyChainMultiSig`, `RBACTimelock` contracts are all part of a system of `owner` contracts that is supposed to administer other contracts (henceforth referred to as `OWNED`). `OWNED` contracts represent any system of contracts that are (1) potentially deployed across chains and (2) have an `owner` role (e.g. using OpenZeppelin's `OwnableInterface`).
 
 Here is a diagram of how we envision these contracts to be configured:
 
@@ -109,6 +109,9 @@ This enables anyone to inspect configuration changes to the OWNED contracts befo
 they take effect. For example, a user that disagrees with a configuration change might choose
 to withdraw funds stored in OWNED contracts before they can be executed. (Though the exact mechanism and assumptions around how this would work are out of scope.)
 
+We may use `RBACTimelock.blockFunctionSelector` to prevent specific functions on the
+`OWNED` contracts from being called through the regular propose-execute flow.
+
 Proposers can also cancel so that they may "undo" proposals with mistakes in them.
 
 The `CallProxy` is intentionally callable by anyone. Offchain tooling used for
@@ -125,6 +128,8 @@ targeting many chains with a single set of signatures. (We currently only target
 and all EVM chains support the same ECDSA secp256k1 standard.) This is useful for administering
 systems of contracts spanning many chains without increasing signing overhead linearly with the
 number of supported chains. We expect to use the same set of EOA signers across many chains.Consequently, `ManyChainMultiSig` only supports EOAs as signers, *not* other smart contracts.
+Similar to the rest of the system, *anyone* who can furnish a correct Merkle proof is allowed to execute authorized calls on the `ManyChainMultiSig`, including a potential adversary. The
+adversary will be able to control the gas price and amount for the execution.
 
 The Proposer and Canceller `ManyChainMultiSig` contracts are expected to be
 configured with a group structure like this, with different sets of signers for each
@@ -235,6 +240,10 @@ As time goes by, we may add more functions to the `IARM` interface. By using a f
 ## Out of scope
 
 Everything not listed above is out of scope.
+
+The fact that "anyone can execute" on the `ManyChainMultiSig`, the
+`CallProxy`, and the `ARMProxy` is intentional and not in scope. Consequently, so is the
+fact that the untrusted executor can choose the gas limit and gas price.
 
 # Additional Context
 
