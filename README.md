@@ -249,7 +249,9 @@ fact that the untrusted executor can choose the gas limit and gas price.
 
 *Describe any novel or unique curve logic or mathematical models implemented in the contracts*
 
-*Sponsor, please confirm/edit the information below.*
+No curve logic or math models. The `ManyChainMultiSig` has interesting schemes
+for configuring a tree of subgroups, Merkle trees of transactions, and chain-specific
+metadata. See the contract docs for details.
 
 ## Scoping Details
 ```
