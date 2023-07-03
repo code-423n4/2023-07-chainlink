@@ -124,7 +124,7 @@ configured with a group structure like this (exact k-of-n parameters might diffe
 ```
           ┌──────────┐
           │Root Group│
-      ┌──►│  5-of-8  │◄─────────┐
+      ┌──►│  6-of-8  │◄─────────┐
       │   └──────────┘          │
       │         ▲               │
       │         │               │
@@ -208,7 +208,6 @@ graph TD;
 ```
 Initially, the "ARM implementation contract" will implement the `IARM` interface.
 As time goes by, we may add more functions to the `IARM` interface. By using a fallback function and assembly, we are future-proof against such updates.
-
 
 *Please provide some context about the code being audited, and identify any areas of specific concern in reviewing the code. (This is a good place to link to your docs, if you have them.)*
 
