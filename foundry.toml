@@ -1,0 +1,10 @@
+[profile.default]
+src = 'src'
+out = 'out'
+libs = ['lib']
+optimizer=false
+gas_reports = ["RBACTimelock", "ManyChainMultiSig"]
+
+[fmt]
+ignore = ['src/RBACTimelock.sol']
+line_length = 100
