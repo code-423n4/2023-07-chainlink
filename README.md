@@ -202,10 +202,10 @@ As time goes by, we may add more functions to the `IARM` interface. By using a f
 
 | Contract | SLOC | Purpose | Libraries used |  
 | ----------- | ----------- | ----------- | ----------- |
-| [src/ARMProxy.sol](src/ARMProxy.sol) | 123 | ARM proxy contract | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-| [src/CallProxy.sol](src/CallProxy.sol) | 123 | Call proxy contract callable by anyone | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-| [src/ManyChainMultiSig.sol](src/CallProxy.sol) | 123 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-| [src/RBACTimelock.sol](src/RBACTimelock.sol) | 123 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/ARMProxy.sol](src/ARMProxy.sol) | 36 | ARM proxy contract | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/CallProxy.sol](src/CallProxy.sol) | 17 | Call proxy contract callable by anyone | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/ManyChainMultiSig.sol](src/CallProxy.sol) | 275 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/RBACTimelock.sol](src/RBACTimelock.sol) | 216 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
 
 ## Out of scope
 
