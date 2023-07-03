@@ -52,7 +52,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
   - Analysis awards: $1,500 USDC 
   - QA awards: $750 USDC 
   - Bot Race awards: $2,250 USDC 
-  - Gas awards: $750 USDC 
+  - Gas awards: $0 USDC 
   - Judge awards: $5,000 USDC 
   - Lookout awards: $2,400 USDC 
   - Scout awards: $500 USDC 
