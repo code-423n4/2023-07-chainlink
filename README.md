@@ -59,6 +59,9 @@ the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
 expected to only become active in "break-glass" type emergency scenarios where
 waiting for `RBACTimelock.minDelay` would be harmful.
 
+* The initial set of `OWNED` contracts will comprise our upcoming [Cross-Chain Interoperability Protocol (CCIP)](https://github.com/code-423n4/2023-05-chainlink) system.*
+
+
 Proposers can also cancel so that they may "undo" proposals with mistakes in them.
 
 ### `RBACTimelock` Considerations
@@ -189,6 +192,11 @@ The `ARMProxy` enables an `owner` (using `RBACTimelock`) to upgrade an underlyin
 `ARM` contract. When the `owner` wants to upgrade, they call `ARMProxy.setARM(new ARM address)`.
 We expect the `ARMProxy` to transparently pass through any function calls except those to
 functions defined by `ARMProxy` and the contracts inherits from.
+
+For more information on the ARM contract, see https://github.com/code-423n4/2023-05-chainlink#arm-contract.
+Note that the ARM contract and its functionality itself are not in scope. You should be able to
+generically think of the ARM contract as a contract that exposes some `view` functions, calls to which
+are proxied via `ARMProxy` for upgradeability.
 
 Deployments are expected to look like this:
 
