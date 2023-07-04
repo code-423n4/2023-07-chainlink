@@ -85,7 +85,7 @@ and gas price, callees are expected to not have gas-dependent behavior other tha
 reverting if insufficient gas is supplied.
 
 The `CallProxy` is not expected to be used with contracts that could `SELFDESTRUCT`. It thus has no
-`EXTCODESIZE`-check prior to making a call, we expect it to be configured correctly (i.e. pointing to a real `RBACTimelock`) on deployment.
+`EXTCODESIZE`-check prior to making a call. We expect it to be configured correctly (i.e. pointing to a real `RBACTimelock`) on deployment.
 
 ### `ManyChainMultiSig` Considerations
 
@@ -95,9 +95,9 @@ and all EVM chains support the same ECDSA secp256k1 standard.) This is useful fo
 systems of contracts spanning many chains without increasing signing overhead linearly with the
 number of supported chains. We expect to use the same set of EOA signers across many chains.Consequently, `ManyChainMultiSig` only supports EOAs as signers, *not* other smart contracts.
 Similar to the rest of the system, *anyone* who can furnish a correct Merkle proof is allowed to execute authorized calls on the `ManyChainMultiSig`, including a potential adversary. The
-adversary will be able to control the gas price and amount for the execution.
+adversary will be able to control the gas price and gas amount for the execution.
 
-The Proposer and Canceller `ManyChainMultiSig` contracts are expected to be
+The proposer and canceller `ManyChainMultiSig` contracts are expected to be
 configured with a group structure like this, with different sets of signers for each
 (exact k-of-n parameters might differ):
 
@@ -113,7 +113,7 @@ configured with a group structure like this, with different sets of signers for 
  └────────┘ └────────┘     └────────┘
 ```
 
-The Bypasser `ManyChainMultiSig` contract is expected to be configured with a
+The bypasser `ManyChainMultiSig` contract is expected to be configured with a
 more complex group structure like this (exact structure might differ):
 
 ```mermaid
@@ -166,6 +166,8 @@ graph TD;
 
 Subgroup 1 has the same signers as the canceller `ManyChainMultiSig`. No change can ever be enacted
 without approval of this group.
+
+In practice, we expect the k-of-n configurations of groups to typically have `1<=k<=32` and `1<=n<=32` (where `k<=n` and we tolerate the overall limits on groups/signers set in `ManyChainMultiSig` code).
 
 ### Propose-and-Execute Flow
 
