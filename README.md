@@ -59,7 +59,7 @@ the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
 expected to only become active in "break-glass" type emergency scenarios where
 waiting for `RBACTimelock.minDelay` would be harmful.
 
-* The initial set of `OWNED` contracts will comprise our upcoming [Cross-Chain Interoperability Protocol (CCIP)](https://github.com/code-423n4/2023-05-chainlink) system.*
+*The set of `OWNED` contracts will comprise our upcoming [Cross-Chain Interoperability Protocol (CCIP)](https://github.com/code-423n4/2023-05-chainlink) system.*
 
 
 Proposers can also cancel so that they may "undo" proposals with mistakes in them.
