@@ -1,4 +1,4 @@
-# Chainlink CCIP-2 audit details
+# Audit Details for "Chainlink Cross-Chain Contract Administration: Multi-signature Contract, Timelock and Call Proxies"
 
 - Total Prize Pool: $47,900 USDC
   - HM awards: $25,500 USDC
