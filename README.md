@@ -18,7 +18,7 @@
 
 **IMPORTANT NOTE:** Prior to receiving payment from this audit you MUST become a [Certified Warden](https://code4rena.com/certified-contributor-application/)  (successfully complete KYC). This also applies to bot crews.  You do not have to complete this process before competing or submitting bugs. You must have started this process within 48 hours after the audit ends, i.e. **by July 12, 2023 at 20:00 UTC in order to receive payment.**
 
-**Note for C4 wardens:** For this contest, gas optimizations are out of scope. The Polynomial team will not be awarding prize funds for gas-specific submissions.
+**Note for C4 wardens:** For this contest, gas optimizations are out of scope. The Chainlink team will not be awarding prize funds for gas-specific submissions.
 
 ## Automated Findings / Publicly Known Issues
 
