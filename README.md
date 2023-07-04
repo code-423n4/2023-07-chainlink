@@ -238,7 +238,7 @@ to keep the diff vs the original OZ contract smaller.
 Gas cost isn't particularly important for these contracts because they're not expected to
 be called often. Correctness matters much more.
 
-The fact that "anyone can execute" on the `ManyChainMultiSig`, the
+The fact that "anyone can execute" on the `ManyChainMultiSig` (only ops authorized through `setRoot` ofc!), the
 `CallProxy`, and the `ARMProxy` is intentional and not in scope. Consequently, so is the
 fact that the untrusted executor can choose the gas limit and gas price.
 
