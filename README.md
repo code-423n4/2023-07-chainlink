@@ -59,6 +59,8 @@ the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
 expected to only become active in "break-glass" type emergency scenarios where
 waiting for `RBACTimelock.minDelay` would be harmful.
 
+Proposers can also cancel so that they may "undo" proposals with mistakes in them.
+
 ### `RBACTimelock` Considerations
 
 We expect to set `RBACTimelock.minDelay` and `delay` to ~ 24 hours in our deployment, but in general values
@@ -70,15 +72,14 @@ to withdraw funds stored in `OWNED` contracts before they can be executed. (Thou
 We may use `RBACTimelock.blockFunctionSelector` to prevent specific functions on the
 `OWNED` contracts from being called through the regular propose-execute flow.
 
-Proposers can also cancel so that they may "undo" proposals with mistakes in them.
-
 ### `CallProxy` Considerations
 
 The `CallProxy` is intentionally callable by anyone. Offchain tooling used for
 generating configuration changes will make appropriate use of the `RBACTimelock`'s
 support for `predecessor`s to ensure that configuration changes are sequenced properly
-even if an adversary is executing them. Since the adversary can also control the amount
-of gas, configuration functions are expected to not have gas-dependent behavior other than reverting of insufficient gas is supplied.
+even if an adversary is executing them. Since the adversary can control the gas amount
+and gas price, callees are expected to not have gas-dependent behavior other than
+reverting if insufficient gas is supplied.
 
 The `CallProxy` is not expected to be used with contracts that could `SELFDESTRUCT`. It thus has no
 `EXTCODESIZE`-check prior to making a call, we expect it to be configured correctly (i.e. pointing to a real `RBACTimelock`) on deployment.
@@ -213,7 +214,7 @@ As time goes by, we may add more functions to the `IARM` interface. By using a f
 | ----------- | ----------- | ----------- | ----------- |
 | [src/ARMProxy.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/ARMProxy.sol) | 36 | ARM proxy contract | [src/\*Owner\*.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/) |
 | [src/CallProxy.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/CallProxy.sol) | 17 | Call proxy contract callable by anyone | None |
-| [src/ManyChainMultiSig.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/ManyChainMultiSig.sol) | 275 | Cross-chain multisig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/ManyChainMultiSig.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/ManyChainMultiSig.sol) | 275 | Cross-chain multi-sig | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
 | [src/RBACTimelock.sol](https://github.com/code-423n4/2023-07-chainlink/blob/main/src/RBACTimelock.sol) | 216 | Timelock with role-based access control | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
 
 ## Out of scope
