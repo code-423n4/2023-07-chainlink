@@ -35,7 +35,7 @@ The `CallProxy`, `ManyChainMultiSig`, `RBACTimelock` contracts are all part of a
 Here is a diagram of how we envision these contracts to be configured:
 
 ```mermaid
-graph TD;
+graph LR;
     owned[OWNED contracts];
     prop[ManyChainMultiSig for proposers];
     cancel[ManyChainMultiSig for cancellers];
