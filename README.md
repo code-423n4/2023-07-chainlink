@@ -59,14 +59,14 @@ the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
 expected to only become active in "break-glass" type emergency scenarios where
 waiting for `RBACTimelock.minDelay` would be harmful.
 
-*The set of `OWNED` contracts will comprise our upcoming [Cross-Chain Interoperability Protocol (CCIP)](https://github.com/code-423n4/2023-05-chainlink) system.*
+*The set of `OWNED` contracts will comprise Chainlink's upcoming [Cross-Chain Interoperability Protocol (CCIP)](https://github.com/code-423n4/2023-05-chainlink) system.*
 
 
 Proposers can also cancel so that they may "undo" proposals with mistakes in them.
 
 ### `RBACTimelock` Considerations
 
-We expect to set `RBACTimelock.minDelay` and `delay` to ~ 24 hours in our deployment, but in general values
+We expect to set `RBACTimelock.minDelay` and `delay` to ~ 24 hours, but in general values
 between 1 hour and 1 month should be supported.
 This enables anyone to inspect configuration changes to the `OWNED` contracts before
 they take effect. For example, a user that disagrees with a configuration change might choose
