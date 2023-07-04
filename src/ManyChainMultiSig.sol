@@ -59,7 +59,7 @@ contract ManyChainMultiSig is Ownable2Step {
 
     // Signing groups are arranged in a tree. Each group is an interior node and has its own quorum.
     // Signers are the leaves of the tree. A signer/leaf node is successful iff it furnishes a valid
-    // signature. A group/interior leaf is successful iff a quorum of its children are successful.
+    // signature. A group/interior node is successful iff a quorum of its children are successful.
     // setRoot succeeds only if the root group is successful.
     // Here is an example:
     //
@@ -186,7 +186,7 @@ contract ManyChainMultiSig is Ownable2Step {
     /// @param metadataProof is the MerkleProof of inclusion of the metadata in the Merkle tree.
     /// @param signatures the ECDSA signatures on (root, validUntil).
     ///
-    /// @dev the message (root, validUntil) should be signed by s_config.quorum of signers' groups.
+    /// @dev the message (root, validUntil) should be signed by a sufficient set of signers.
     /// This signature authenticates also the metadata.
     ///
     /// @dev this method can be executed by anyone who has the root and valid signatures.
@@ -208,8 +208,7 @@ contract ManyChainMultiSig is Ownable2Step {
             revert SignedHashAlreadySeen();
         }
 
-        // verify ECDSA signatures on (root, validUntil) and ensure that there is s_config.quorum
-        // successful groups
+        // verify ECDSA signatures on (root, validUntil) and ensure that the root group is successful
         {
             // verify sigs and count number of signers in each group
             Signer memory signer;
@@ -218,8 +217,8 @@ contract ManyChainMultiSig is Ownable2Step {
             for (uint256 i = 0; i < signatures.length; i++) {
                 Signature calldata sig = signatures[i];
                 address signerAddress = ECDSA.recover(signedHash, sig.v, sig.r, sig.s);
-                // The off-chain system is required to sort the signatures by the
-                // signer address in an increasing order.
+                // the off-chain system is required to sort the signatures by the
+                // signer address in an increasing order
                 if (prevAddress >= signerAddress) {
                     revert SignersAddressesMustBeStrictlyIncreasing();
                 }
@@ -245,12 +244,12 @@ contract ManyChainMultiSig is Ownable2Step {
                     group = s_config.groupParents[group];
                 }
             }
-            // The group at the root of the tree (with index 0) determines
-            // whether the vote passed.
+            // the group at the root of the tree (with index 0) determines whether the vote passed,
+            // we cannot proceed if it isn't configured with a valid (non-zero) quorum
             if (s_config.groupQuorums[0] == 0) {
                 revert MissingConfig();
             }
-            // Did the root group reach its quorum?
+            // did the root group reach its quorum?
             if (groupVoteCounts[0] < s_config.groupQuorums[0]) {
                 revert InsufficientSigners();
             }
@@ -388,7 +387,7 @@ contract ManyChainMultiSig is Ownable2Step {
     /// setRoot allows a root to be set.
     /// @param clearRoot, if set to true, invalidates the current root. This option is needed to
     /// invalidate the current root, so to prevent further ops from being executed. This
-    /// might be used when the current root is signed by less than the new `quorum` signers or when
+    /// might be used when the current root was signed under a loser group configuration or when
     /// some previous signers aren't trusted any more.
     function setConfig(
         address[] calldata signerAddresses,
@@ -409,7 +408,7 @@ contract ManyChainMultiSig is Ownable2Step {
             // validate group structure
             // counts the number of children of each group
             uint8[NUM_GROUPS] memory groupChildrenCounts;
-            // first, we count the signers in each leaf group
+            // first, we count the signers as children
             for (uint256 i = 0; i < signerGroups.length; i++) {
                 if (signerGroups[i] >= NUM_GROUPS) {
                     revert OutOfBoundsGroup();
@@ -552,7 +551,8 @@ contract ManyChainMultiSig is Ownable2Step {
     /// @notice Thrown when the signature corresponds to invalid signer.
     error InvalidSigner();
 
-    /// @notice Thrown when there is no quorum of valid signatures.
+    /// @notice Thrown when there is no sufficient set of valid signatures provided to make the
+    /// root group successful.
     error InsufficientSigners();
 
     /// @notice Thrown when attempt to set metadata or execute op for another chain.
