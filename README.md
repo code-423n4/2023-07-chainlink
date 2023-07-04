@@ -179,12 +179,13 @@ The following steps need to be performed for a set of onchain maintenance operat
 
 ### Canceller Flow
 
-Similar to prpose-and-execute flow. If a quorum of cancellers disapproves of an action pending on the
+This can be thought of as an optional step of the propose-and-execute flow. If a quorum of cancellers disapproves of an action pending on the
 `RBACTimelock`, they can create a set of `ManyChainMultiSig.Op`s that calls `RBACTimelock.cancel` on
 all relevant `RBACTimelock`s.
 
 ### Bypasser Flow
 
+This is completely independent of the propose-and-execute flow.
 Bypassers create a set of `ManyChainMultiSig.Op`s that calls `RBACTimelock.bypasserExecuteBatch` on
 all relevant `RBACTimelock`s.
 
