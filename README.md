@@ -34,25 +34,7 @@ The `CallProxy`, `ManyChainMultiSig`, `RBACTimelock` contracts are all part of a
 
 Here is a diagram of how we envision these contracts to interact:
 
-```mermaid
-graph LR;
-    owned[OWNED contracts];
-    prop[ManyChainMultiSig for proposers];
-    cancel[ManyChainMultiSig for cancellers];
-    forwarder[CallProxy];
-    timelock[RBACTimelock];
-    emerg[ManyChainMultiSig for bypassers];
-    prop --> |PROPOSER| timelock;
-    prop --> |CANCELLER| timelock;
-    cancel --> |CANCELLER| timelock;
-    forwarder --> |EXECUTOR| timelock;
-    timelock --> |ADMIN| timelock;
-    timelock --> |OWNER| owned;
-    timelock --> |OWNER| emerg;
-    timelock --> |OWNER| cancel;
-    timelock --> |OWNER| prop;
-    emerg --> |BYPASSER| timelock;
-```
+![a flowchart showing various "ManyChainMultiSig" boxes connecting through various loops around an "RBACTimelock" box](https://github.com/code-423n4/2023-07-chainlink/assets/118944339/4e1ee6c8-46eb-4ff1-97a2-09d71c3e563b)
 
 Regular administration of the `OWNED` contracts is expected to happen through
 the `RBACTimelock`'s Proposer/Executor/Canceller roles. The Bypasser role is
@@ -116,53 +98,7 @@ configured with a group structure like this, with different sets of signers for 
 The bypasser `ManyChainMultiSig` contract is expected to be configured with a
 more complex group structure like this (exact structure might differ):
 
-```mermaid
-graph TD;
-
-    root[root group<br>2-of-2];
-    sub1[subgroup 1<br>6-of-8];
-    sub2[subgroup 2<br>2-of-3];
-    sub21[subgroup 2.1<br>6-of-8];
-    sub22[subgroup 2.2<br>1-of-3];
-    sub23[subgroup 2.3<br>6-of-8];
-    sigs1to8[signers 1 ... 8];
-    sigs9to16[signers 9 ... 16];
-    sigs17to19[signers 17 ... 19];
-    sigs20to27[signers 20 ... 27];
-
-    root --- sub1;
-    root --- sub2;
-    sub2 --- sub21;
-    sub2 --- sub22;
-    sub2 --- sub23;
-    sub1 --- sigs1to8;
-    sub1 --- sigs1to8;
-    sub1 --- sigs1to8;
-    sub1 --- sigs1to8;
-    sub1 --- sigs1to8;
-    sub1 --- sigs1to8;
-    sub1 --- sigs1to8;
-    sub1 --- sigs1to8;
-    sub21 --- sigs9to16;
-    sub21 --- sigs9to16;
-    sub21 --- sigs9to16;
-    sub21 --- sigs9to16;
-    sub21 --- sigs9to16;
-    sub21 --- sigs9to16;
-    sub21 --- sigs9to16;
-    sub21 --- sigs9to16;
-    sub22 --- sigs17to19;
-    sub22 --- sigs17to19;
-    sub22 --- sigs17to19;
-    sub23 --- sigs20to27;
-    sub23 --- sigs20to27;
-    sub23 --- sigs20to27;
-    sub23 --- sigs20to27;
-    sub23 --- sigs20to27;
-    sub23 --- sigs20to27;
-    sub23 --- sigs20to27;
-    sub23 --- sigs20to27;
-```
+![a flowchart showing a "root group box" with various level(s) of "subgroup" boxes below and various "signers" boxes below those](https://github.com/code-423n4/2023-07-chainlink/assets/118944339/eabf96f7-8c41-45d4-86fc-a925d937ece8)
 
 Subgroup 1 has the same signers as the canceller `ManyChainMultiSig`. No change can ever be enacted
 without approval of this group.
@@ -203,18 +139,7 @@ are proxied via `ARMProxy` for upgradeability.
 
 Deployments are expected to look like this:
 
-```mermaid
-graph TD;
-    c1[ARM consumer 1];
-    c2[ARM consumer 2];
-    c3[ARM consumer 3];
-    armproxy[ARMProxy];
-    iarm[ARM implementation contract];
-    c1 --> |immutable ref| armproxy;
-    c2 --> |immutable ref| armproxy;
-    c3 --> |immutable ref| armproxy;
-    armproxy --> |OWNER-controlled ref| iarm;
-```
+![three "ARM consumer" boxes flowing into an "ARMProxy" box flowing into an "ARM implementation contract" box](https://github.com/code-423n4/2023-07-chainlink/assets/118944339/e6847289-07a2-4c4c-9eb9-e50f801b4e81)
 
 Initially, the "ARM implementation contract" will implement the `IARM` interface.
 As time goes by, we may add more functions to the `IARM` interface. By using a fallback function and assembly, we are future-proof against such updates.
