@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import {ManyChainMultiSig} from "../src/ManyChainMultiSig.sol";
-import {ManyChainMultiSigBaseSetRootAndExecuteTest} from "./manyChainMultiSigBaseTest.t.sol";
+import {ManyChainMultiSigBaseSetRootAndExecuteTest} from "./ManyChainMultiSigBaseTest.t.sol";
 
 contract ManyChainMultiSigExecuteTest is ManyChainMultiSigBaseSetRootAndExecuteTest {
     event OpExecuted(uint40 indexed nonce, address to, bytes data, uint256 value);

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import {ManyChainMultiSig} from "../src/ManyChainMultiSig.sol";
-import "./manyChainMultiSigBaseTest.t.sol";
+import "./ManyChainMultiSigBaseTest.t.sol";
 
 contract ManyChainMultiSigSetConfigTest is ManyChainMultiSigBaseTest {
     event ConfigSet(ManyChainMultiSig.Config config, bool isRootCleared);
