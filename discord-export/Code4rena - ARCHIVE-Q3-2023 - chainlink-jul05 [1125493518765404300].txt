@@ -1,0 +1,397 @@
+==============================================================
+Guild: Code4rena
+Channel: ARCHIVE-Q3-2023 / chainlink-jul05
+==============================================================
+
+[07/03/2023 23:14] kartoonjoy (pinned)
+👋 Hello and welcome to the audit channel for the $47,900 USDC **Chainlink Cross-Chain Contract Administration: Multi-signature Contract, Timelock and Call Proxies** audit!
+
+📆 Audit opens 07/05/2023 20:00 (20:00 UTC) and runs through 07/12/2023 20:00 (20:00 UTC) (7 days).
+
+Please give a warm welcome to the Chainlink team, particularly @Alex Coventry, @kaleofduty | Chainlink Labs, and @Yos | Chainlink, who will be available for questions either here in the channel or via DM in the EST timezone(s).
+
+We'll be posting relevant links, documentation, etc. here, so if you intend to participate in this audit, consider enabling notifications for this channel. 🐺 ⏰
+
+Audit Page: https://code4rena.com/contests/2023-07-chainlink-cross-chain-contract-administration-multi-signature-contract-timelock-and-call-proxies
+
+{Embed}
+https://code4rena.com/contests/2023-07-chainlink-cross-chain-contract-administration-multi-signature-contract-timelock-and-call-proxies
+Code4rena
+Code4rena is a competitive audit platform that finds more high-severity vulnerabilities, more quickly than any other auditing method.
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/c4-og-banner-3E5BC.png
+
+
+[07/03/2023 23:14] kartoonjoy
+Pinned a message.
+
+
+[07/04/2023 01:30] itsmetechjay (pinned)
+**IMPORTANT NOTE:** Prior to receiving payment from this audit you MUST become a Certified Warden (successfully complete KYC). This also applies to bot crews. You do not have to complete this process before competing or submitting bugs. You must have started this process within 48 hours after the audit ends, i.e. **by July 14, 2023 at 20:00 UTC in order to receive payment.**
+
+{Reactions}
+☝️ 
+
+[07/04/2023 01:30] itsmetechjay
+Pinned a message.
+
+
+[07/05/2023 20:01] 0xnirlin
+@kartoonjoy | C4 🎇🎇 why it is private on site?
+
+
+[07/05/2023 20:02] cloudellie
+apologies, I misspoke
+
+
+[07/05/2023 20:02] cloudellie
+looking into it
+
+
+[07/05/2023 20:02] 0xnirlin
+Working now.
+
+{Reactions}
+✅ 
+
+[07/05/2023 20:04] kale_of_duty
+Welcome, Wardens!
+We look forward to working with you for this contest and you poking lots of interesting holes in our code 🧠 🧠 🧠
+
+{Reactions}
+🧠 (7) 
+
+[07/05/2023 20:18] kartoonjoy
+**Wardens please note:** We are aware that there are a couple of diagrams that are currently not rendering on the website. We are working on this fix. In the meantime, please feel free to review them directly on the repo. Thanks!
+
+
+[07/05/2023 23:01] kale_of_duty (pinned)
+Reposting a question and answer here for everyone:
+Question: In the documentation, it says "Proposers can also cancel so that they may "undo" proposals with mistakes in them." but I couldn't find any functionality that allows proposers to cancel their proposal.
+Answer: this refers to the configuration diagram here https://github.com/code-423n4/2023-07-chainlink#callproxy-manychainmultisig-rbactimelock The ManyChainMultiSig for proposers also has the CANCELLER role on the RBACTimelock
+
+{Embed}
+https://github.com/code-423n4/2023-07-chainlink
+GitHub - code-423n4/2023-07-chainlink
+Contribute to code-423n4/2023-07-chainlink development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/17e13367-bdc4-4d79-94c0-887772f59203-F9D92
+
+
+[07/06/2023 00:15] kartoonjoy
+Pinned a message.
+
+
+[07/06/2023 04:32] 0xvolodya
+There is typo in tests, renaming like this helped me
+import {ManyChainMultiSigBaseSetRootAndExecuteTest} from "./manyChainMultiSigBaseTest.t.sol"; ---->
+import {ManyChainMultiSigBaseSetRootAndExecuteTest} from "./ManyChainMultiSigBaseTest.t.sol";
+
+{Attachments}
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/Screenshot_from_2023-07-06_12-31-09-23EAF.png
+
+{Reactions}
+👍 
+
+[07/06/2023 09:53] kale_of_duty
+Thank you for bringing this to our attention. This should now be fixed on the latest main branch.
+
+
+[07/06/2023 12:05] nobody2018
+@kaleofduty | Chainlink Labs please check dm
+
+{Reactions}
+✅ 
+
+[07/06/2023 12:41] carlitox477
+@kaleofduty | Chainlink Labs I sent u a dm
+
+{Reactions}
+✅ 
+
+[07/06/2023 14:48] cloudellie (pinned)
+**Wardens** - please note that the automated findings output (AKA the winning bot race report 🏆, submitted by @DadeKuma ) is posted below.
+
+These are considered publicly known issues and are not eligible for awards.
+
+🤖 **Automated findings:** 
+https://gist.github.com/CloudEllie/05fda0fdecba2ed7d85f68c709e46c8d
+
+📄 **Code4rena submission guidelines and automated findings policy:** 
+https://docs.code4rena.com/roles/wardens/submission-policy#automated-findings-ineligible
+
+The above link has also been added to the contest README.
+
+
+[07/06/2023 14:48] cloudellie
+Pinned a message.
+
+
+[07/06/2023 15:59] mrpotatomagic
+@kaleofduty | Chainlink Labs dmed you
+
+{Reactions}
+✅ 
+
+[07/06/2023 18:04] kartoonjoy (pinned)
+@🐺wardens, to aid the sponsor team in making the best use of their time, when you have a question, please create a group DM to include @Alex Coventry, @kaleofduty | Chainlink Labs and @Yos | Chainlink. Whomever is available will then be able to respond and allow the others to be available for your fellow wardens.
+
+Also, questions for the team should be reserved to protocol inquiries and not basic set up questions.  If there are any concerns, please let us know in the #❓questions channel. Thank you for your help!
+
+{Reactions}
+👍🏻 (9) thankyou (3) 
+
+[07/06/2023 18:04] kartoonjoy
+Pinned a message.
+
+
+[07/08/2023 20:06] Franfran#5067
+the ASCII is looking gud! Was it made by hand ?
+
+
+[07/08/2023 20:06] Franfran#5067
+for the multisig
+
+
+[07/09/2023 12:00] kale_of_duty
+Started a thread.
+
+
+[07/10/2023 09:42] 0xrizwan
+@kaleofduty | Chainlink Labs Please check DM.
+
+{Reactions}
+✅ 
+
+[07/11/2023 04:55] 0xrizwan
+@Alex Coventry Please check DM.
+
+
+[07/11/2023 17:39] amaechieth
+would EVM2EVM Onramp/Offramp classify as `OWNED` contracts?
+
+
+[07/11/2023 18:27] 0xrizwan
+@kaleofduty | Chainlink Labs sent DM. Please check.
+
+{Reactions}
+✅ 
+
+[07/11/2023 18:34] kale_of_duty
+yes
+
+
+[07/11/2023 18:55] mrpotatomagic
+@kaleofduty | Chainlink Labs dmed you
+
+{Reactions}
+✅ 
+
+[07/12/2023 20:02] C4
+**🚨 AUDIT ALERT**
+
+@🐺wardens The **Chainlink Cross-Chain Contract Administration: Multi-signature Contract, Timelock and Call Proxies** audit is now closed! Huge thanks to everyone who participated 🔍, whether you submitted a finding or not.
+
+What's next: The sponsor team and judge will review the findings over the next couple of weeks. Keep an eye on #📢announcements for regular updates on how the audit is progressing through awarding 🤑🏆, judging 🧑‍⚖️ and reporting 📜. Feel free to ping a Contest-Admin if you have questions along the way!
+
+
+[07/12/2023 20:07] c145h
+@Alex Coventry ready to execute proposals can be cancelled, is it intended?
+
+
+[07/12/2023 20:08] alexcoventry
+Yes. (For the sake of full disclosure, the contest has just closed.)
+
+
+[07/12/2023 20:08] c145h
+Yep!
+
+
+[07/12/2023 20:12] mrpotatomagic
+Thank you @kaleofduty | Chainlink Labs @Alex Coventry for your coordination
+
+{Reactions}
+🙌 
+
+[07/25/2023 13:38] 0x4non
+got any eta for this contents?
+
+
+[07/25/2023 13:55] alextheentreprenerd
+Sponsor has reviewed judging from today
+
+{Reactions}
+🫡 (5) 
+
+[08/07/2023 15:56] shubh0412
+The audacity I have by asking "WHEN" after submitting just one finding 🥲 🫠
+
+
+[08/07/2023 16:19] sockdrawermoney
+wenners keep wenning
+
+{Reactions}
+😂 (7) 
+
+[08/11/2023 14:09] shubh0412
+https://tenor.com/view/buscando-duck-looking-searching-finding-gif-15571440
+
+{Embed}
+https://tenor.com/view/buscando-duck-looking-searching-finding-gif-15571440
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/buscando-duck-CFD29.png
+
+{Reactions}
+🤣 
+
+[08/11/2023 14:10] thebrittfactor
+Post Judging QA should wrap up over the weekend 🙂
+
+{Reactions}
+🔥 
+
+[08/11/2023 14:11] shubh0412
+https://tenor.com/view/hum-humble-yeah-right-ice-cream-gif-12754600
+
+{Embed}
+https://tenor.com/view/hum-humble-yeah-right-ice-cream-gif-12754600
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/hum-humble-71F70.png
+
+{Reactions}
+☺️ praisethesun 
+
+[08/23/2023 14:22] 0x4non
+https://tenor.com/view/titanic-longtime-years-later-its-been84years-rose-dawson-gif-5453439
+
+{Embed}
+https://tenor.com/view/titanic-longtime-years-later-its-been84years-rose-dawson-gif-5453439
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/titanic-longtime-9C1FA.png
+
+{Reactions}
+🤣 (2) 
+
+[08/23/2023 14:27] thebrittfactor
+https://tenor.com/view/kevin-hart-its-about-to-go-down-calm-before-the-storm-gif-4420127
+
+{Embed}
+https://tenor.com/view/kevin-hart-its-about-to-go-down-calm-before-the-storm-gif-4420127
+It's about to go down
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/kevin-hart-its-about-to-go-down-E25EA.png
+
+
+[08/25/2023 19:56] liveactionllamac4
+🤑 🎉  Awards for **Chainlink Cross-Chain Contract Administration (July)**:
+
+$7,938.71 USDC » @immeas 
+$6,106.70 USDC » @osmanozdemir1 
+$6,106.70 USDC » LaScaloneta (@nicobevi.eth, @juancito, & @anon)
+$1,268.45 USDC » @kutu 
+$1,132.09 USDC » @MrPotatoMagic 
+$677.54 USDC » @nobody2018 
+$677.54 USDC » @rvierdiiev 
+$677.54 USDC » @Franfran 
+$677.54 USDC » @amaechi eth 
+$677.54 USDC » @twcctop 
+$677.54 USDC » @Tricko 
+$677.54 USDC » @Haipls 
+$454.55 USDC » @seal 
+
+🏁 Findings summary
+--------------------------------------—
+High risk findings: 0
+Med risk findings: 0
+QA reports: 12 (Best: immeas)
+Advanced analysis reports: 3 (Best: kutugu)
+
+Awards will be distributed on Polygon within the next week. Congratulations all!  💸 💸 💸
+
+:siren: **Friendly reminder** that the audit findings and report will be kept private to the sponsor team and +backstage wardens only. The award results will be posted to the leaderboard, but please no discussions regarding the content of findings whatsoever.
+
+❗ **Also, if you're not already certified:** you have until **September 24th** to complete certification or you will not be eligible for awards. Instructions here: https://docs.code4rena.com/roles/certified-contributors
+
+
+[08/25/2023 20:00] mlome
+$8k for QA report 🙃
+
+
+[08/25/2023 20:05] 0xbtk
+No HMs
+
+
+[08/25/2023 20:06] shubh0412
+Gonna cry now.
+
+
+[08/25/2023 20:06] shubh0412
+https://tenor.com/view/%DA%AF%D8%B1%DB%8C%D9%87-%D9%86%D8%A7%D8%B1%D8%A7%D8%AD%D8%AA-%D8%BA%D9%85-gerye-narahat-gif-23378340
+
+{Embed}
+https://tenor.com/view/%DA%AF%D8%B1%DB%8C%D9%87-%D9%86%D8%A7%D8%B1%D8%A7%D8%AD%D8%AA-%D8%BA%D9%85-gerye-narahat-gif-23378340
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/%25DA%25AF%25D8%25B1%25DB%258C%25D9%2587-%-86589.png
+
+{Reactions}
+🥲 (2) 
+
+[08/25/2023 20:12] 0xjuancito
+3rd place ✌️
+
+{Reactions}
+🎉 (6) 
+
+[08/25/2023 20:17] immeas
+omg! my first winning QA report haha, timed it good i guess
+
+{Reactions}
+🏆 (9) 
+
+[08/25/2023 20:18] 0xjuancito
+Best time to win the QA report 😄 Congrats!
+
+
+[08/25/2023 20:24] osmanozdemir1#8314
+Congrats ser 👏🏼👏🏼
+
+
+[08/25/2023 20:25] 0xnevi
+Damn good job guys! Rooting for all of u guys
+
+{Reactions}
+❤️ (4) 
+
+[08/25/2023 20:27] mrpotatomagic
+My first top 5, thank you for this opportunity :thankyou: :code4rena:
+
+{Reactions}
+💜 (4) 
+
+[08/26/2023 04:26] Udsen#2087
+Congratulations all !!!
+
+
+[09/01/2023 18:46] osmanozdemir1#8314
+@immeas @juancito @nicobevi.eth @anon
+
+{Attachments}
+Code4rena - ARCHIVE-Q3-2023 - chainlink-jul05 [1125493518765404300].txt_Files/IMG_9075-3840F.png
+
+{Reactions}
+❤️ 
+
+[09/01/2023 18:49] immeas
+i'll proofread their typo corrections for a coffee 🙂
+
+{Reactions}
+😄 (2) 
+
+[09/06/2023 14:36] kale_of_duty
+Happy to take you for a coffee depending on where in the world you are! 😁
+
+{Reactions}
+❤️ (3) 
+
+[09/06/2023 19:52] immeas
+jokes aside, compliments to an amazing piece of code, i've been doing software development for 13 years and i'm always happy to review your code because it teaches me things. that's an honest compliment to you and your team. keep doing what you are doing.
+
+{Reactions}
+❤️ (5) 🙇 
+
+==============================================================
+Exported 60 message(s)
+==============================================================
